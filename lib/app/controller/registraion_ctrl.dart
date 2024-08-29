@@ -6,11 +6,15 @@ import 'package:http/http.dart' as http;
 import '../app_data/const.dart';
 import '../screen/botto_nav.dart';
 class RegistraionCtrl extends GetxController {
+
   final firstNameEditCtrl = TextEditingController().obs;
   final familyNameEditCtrl = TextEditingController().obs;
   final emailEditCtrl = TextEditingController().obs;
   final passwordEditCtrl = TextEditingController().obs;
 
+  final updatefirstNameEditCtrl = TextEditingController().obs;
+  final updatefamilyNameEditCtrl = TextEditingController().obs;
+  final updateemailEditCtrl = TextEditingController().obs;
 
 Future<void> register() async {
   final response = await http.post(
@@ -29,14 +33,20 @@ Future<void> register() async {
     final responseData = jsonDecode(response.body);
      Get.to(BottomNavBar());
     // I/flutter ( 6124): Login successful: {firstName: Amresh, familyName: amresh, email: Amresh, password: 123456}
-firstNameEditCtrl.value.text = responseData['firstName'];
-familyNameEditCtrl.value.text = responseData['familyName'];
-emailEditCtrl.value.text = responseData['email'];
+updatefirstNameEditCtrl.value.text = responseData['firstName'];
+updatefamilyNameEditCtrl.value.text = responseData['familyName'];
+updateemailEditCtrl.value.text = responseData['email'];
 
 
     print('Register successful: ${responseData}');
   } else {
     print('Failed to login: ${response.reasonPhrase}');
   }
+}
+
+
+final isVisible = false.obs;
+void showPassword() {
+  isVisible.value = !isVisible.value;
 }
 }

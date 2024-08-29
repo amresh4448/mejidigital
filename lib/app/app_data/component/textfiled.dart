@@ -38,12 +38,68 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
         
         
-        
-        //  OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(8.0),
-        // ),
+  
       ),
       validator: validator,
+    );
+  }
+}
+
+
+
+class SearchTextFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onClear;
+  final FormFieldValidator<String>? validator;
+  final VoidCallback? filter;
+
+  const SearchTextFormField({
+    super.key,
+    required this.controller,
+    this.filter,
+    this.hintText = 'Search...',
+    this.onChanged,
+    this.onClear,
+    this.validator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      controller: controller,
+      onChanged: onChanged,
+      validator: validator,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        hintText: hintText,
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: controller.text.isNotEmpty
+            ? IconButton(
+              splashRadius: 20,
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  controller.clear();
+                  if (onClear != null) {
+                    onClear!();
+                  }
+                },
+              )
+            : IconButton(
+               splashRadius: 20,
+                icon: const Icon(Icons.tune),
+                onPressed: filter
+              ),
+     
+        filled: true,
+        fillColor: Colors.grey[200],
+      ),
     );
   }
 }

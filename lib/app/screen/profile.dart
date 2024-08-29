@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mejidigital/app/app_data/component/button.dart';
 import 'package:mejidigital/app/app_data/component/textfiled.dart';
+import 'package:mejidigital/app/controller/login_ctrl.dart';
 import 'package:mejidigital/app/screen/login_page.dart';
 import 'package:mejidigital/app/utils/colors.dart';
 
@@ -10,6 +11,10 @@ import '../controller/registraion_ctrl.dart';
 class MyProfile extends StatelessWidget {
    MyProfile({super.key});
 final registraionCtrl = Get.put(RegistraionCtrl());
+
+final loginCtrl = Get.put(LoginCtrl());
+
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -110,11 +115,15 @@ final registraionCtrl = Get.put(RegistraionCtrl());
             CustomButton(
               color: const Color(0xff2D2B75),
               text: 'Logout'.toUpperCase(),
-              onPressed: () { 
-  Future.delayed(
-    Duration(seconds: 2),
+              onPressed: () { Future.delayed(
+    const Duration(seconds: 2),
     () {
-                 Get.to(() =>  LoginPage());
+      registraionCtrl.emailEditCtrl.value.clear();
+      registraionCtrl.passwordEditCtrl.value.clear();
+      registraionCtrl.firstNameEditCtrl.value.clear();
+      registraionCtrl.familyNameEditCtrl.value.clear();
+      loginCtrl.isLoading.value = false;
+                 Get.off(() =>  LoginPage());
 
     }
   );

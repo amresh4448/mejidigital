@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ServiceCard extends StatelessWidget {
+  final String title;
+  const ServiceCard({super.key, required this.title});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,7 +11,7 @@ class ServiceCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        boxShadow: const [
+        boxShadow: const  [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 10,
@@ -44,10 +46,10 @@ class ServiceCard extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
             ),
-            child: const Center(
+            child:  Center(
               child: Text(
-                'Local Delivery',
-                style: TextStyle(
+                title,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
